@@ -1,66 +1,70 @@
 # src Directory
 
 ## Overview
-The `src` directory contains the core implementation of the **Winter Supplement Eligibility Calculator**. This folder includes modules for handling MQTT communication, processing requests, and applying the rules engine logic. The design ensures seamless integration, modularity, and scalability for eligibility determination and supplement calculations.
+The `src` directory holds the main implementation of the Winter Supplement Eligibility Calculator. It includes modules for MQTT communication, request processing, and rule-based eligibility calculations. The design focuses on integration, modularity, and scalability.
 
 ---
 
-## Modules
+### Modules
 
-### 1. `broker_handler.py`
-- **Purpose**: Manages communication with the MQTT broker.
-- **Responsibilities**:
-  - Connects to the MQTT broker and subscribes to input topics.
-  - Processes incoming requests and publishes results to output topics.
-  - Handles reconnection scenarios for uninterrupted service.
-- **Highlights**:
-  - Dynamic topic management using environment variables.
-  - Error handling to ensure reliable message processing.
+`rule_engine.py`
+
+- Acts as the main entry point for the system.
+- Initializes the PaymentEligibilityService from broker_handler.py.
+- Starts and manages the MQTT service to handle messages until interrupted.
+
 
 ---
+<br>
 
-### 2. `rule_engine.py`
-- **Purpose**: Serves as the application’s entry point for starting the rules engine.
-- **Responsibilities**:
-  - Initializes the MQTT communication service.
-  - Keeps the rules engine running to handle real-time requests.
-- **Usage**:
-  ```bash
-  python src/rule_engine.py
+`broker_handler.py`
 
-3. client.py
+- Manages MQTT communication and message handling.
+- Subscribes to request topics and publishes responses dynamically based on the environment.
+- Processes incoming messages to calculate the Winter Supplement using the logic from supplement_core_logic.py.
 
-	•	Purpose: Provides an interactive command-line interface for testing the application.
-	•	Responsibilities:
-	•	Collects user input for family details (e.g., family composition, number of children).
-	•	Sends requests to the rules engine and receives responses via MQTT.
-	•	Usage:
+#### Key Features:
+- Handles connections, disconnections, and reconnections to the MQTT broker.
+- Dynamically uses topic IDs for flexible communication.
+- Ensures smooth operation with lifecycle management (start, stop, and error handling).
+---
+<br>
 
-python src/client.py
+`client.py`
+- 	Provides an interactive client interface to send test requests and receive responses.
+- Allows users to input family details such as:
+- Number of children.
+- Family composition (single or couple).
+- Eligibility for December payments.
+- Publishes data to the input topic and listens for responses on the output topic.
 
+#### Key Features:
+- Input validation for user-friendly error handling.
+- Supports testing multiple scenarios through an interactive menu.
 
-	•	Features:
-	•	Intuitive prompts for user interaction.
-	•	Real-time response display.
+---
+<br>
 
-4. supplement_core_logic.py
+`supplement_core_logic.py`
+-	Contains the core logic for calculating the Winter Supplement.
+-	Validates input data against a predefined schema using jsonschema.
 
-	•	Purpose: Implements the core business logic for determining eligibility and calculating supplement amounts.
-	•	Responsibilities:
-	•	Validates input requests against a JSON schema.
-	•	Determines eligibility and computes the supplement amount based on family composition and rules.
-	•	Calculation Rules:
-	•	Single Individual: $60.
-	•	Childless Couple: $120.
-	•	Families with Children: $120 plus $20 per child.
-	•	Output:
-	•	Structured JSON response with eligibility status and calculated amounts.
+#### Key Features:
+-	Validation:
+-	Ensures data integrity and correctness (e.g., non-negative children, valid family composition).
 
-How to Extend
+#### Calculation:
+-	Determines eligibility and computes supplement amounts:
+-	Base amount: $60 (single) or $120 (couple).
+-	Additional $20 for each child.
+-	Returns $0 if not eligible for December payments.
+	
 
-	•	Modify Rules: Update supplement_core_logic.py to incorporate new eligibility criteria or benefit calculations.
-	•	Add New Topics: Adjust broker_handler.py to include additional MQTT topics for integration with other services.
+---
+<br>
 
-This README provides a concise yet professional overview of the src folder, focusing on its functionality and modularity. For further details, explore the individual modules or contact the development team.
+### Usage:
 
-This Markdown version ensures proper formatting and clear presentation in any Markdown viewer or repository platform. Let me know if further adjustments are needed!
+1.	Start the rule_engine.py to launch the MQTT service.
+2.	Use client.py to send test requests and validate responses.
+3.	Modify topics and configurations using environment variables for flexible deployments.

@@ -91,7 +91,7 @@ Confirms that a single individual with one child gets $80 ($60 base + $20 for th
 ---
 <br>
 
-### Notes:
+### NOTE:
 
-- All tests require an active MQTT broker (test.mosquitto.org) running on port 1883.
-- Ensure all dependencies listed in requirements.txt are installed before running the tests.
+1. All tests require an active MQTT broker (test.mosquitto.org) running on port 1883.
+2. Ensure all dependencies listed in requirements.txt are installed before running the tests.

@@ -103,21 +103,21 @@ pytest --cov=src tests/
 #### 1. Establishing Connection with the MQTT Broker:
 Demonstrates the process of connecting the application to the MQTT broker and passing data in the exact JSON format received from the web application.
 
-<video controls src="media/recording_1.gif" title="Title"></video>
+<video controls src="media/recording_1.mp4" title="Title"></video>
 		
 
 #### 2. Interactive Testing with Step-by-Step User Input:
 Showcases an additional feature that imitates user input step by step. This feature facilitates better usability and allows for manual testing of the application.
 
-<video controls src="media/recording_2.gif" title="Title"></video>
+<video controls src="media/recording_2.mp4" title="Title"></video>
 	
 #### 3.	Executing All Tests:
 Displays the process and successful execution of tests with results. 
 
-<video controls src="media/testRecording_1.gif" title="Title"></video>
+<video controls src="media/testRecording_1.mp4" title="Title"></video>
 
 
 #### 4.	Running Tests with Coverage Report:
 Illustration of generated coverage report for running tests with the coverage command:
 
-<video controls src="media/testRecording_2.gif" title="Title"></video>
+<video controls src="media/testRecording_2.mp4" title="Title"></video>
