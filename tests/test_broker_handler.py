@@ -45,7 +45,7 @@ def test_valid_message_processing(mqtt_setup):
     time.sleep(2)  # Allow time for connection
     
     test_data = {
-        "id": "test123",
+        "id": "WS001",
         "numberOfChildren": 1,
         "familyComposition": "single",
         "familyUnitInPayForDecember": True
@@ -59,26 +59,35 @@ def test_valid_message_processing(mqtt_setup):
     
     test_client = mqtt.Client()
     test_client.on_message = on_message
+    
+    # Connect and wait for connection to establish
     test_client.connect("test.mosquitto.org", 1883)
-    test_client.subscribe(mqtt_setup.response_topic)
     test_client.loop_start()
+    time.sleep(1)  # Wait for client to connect
+    
+    # Subscribe and wait for subscription to complete
+    test_client.subscribe(mqtt_setup.response_topic)
+    time.sleep(1)  # Wait for subscription to complete
     
     # Publish test message
     test_client.publish(mqtt_setup.request_topic, json.dumps(test_data))
     
-    # Wait for response
-    time.sleep(2)
-    
-    # Verify response was received
-    assert len(received_messages) > 0
-    response = received_messages[0]
-    assert response["id"] == "test123"
-    assert "supplementAmount" in response
+    # Wait longer for response processing
+    retry_count = 0
+    while len(received_messages) == 0 and retry_count < 5:
+        time.sleep(1)
+        retry_count += 1
     
     # Cleanup
     test_client.loop_stop()
     test_client.disconnect()
     mqtt_setup.stop()
+    
+    # Verify response was received
+    assert len(received_messages) > 0
+    response = received_messages[0]
+    assert response["id"] == "WS001"
+    assert "supplementAmount" in response
 
 def test_bad_message_handling(mqtt_setup):
     """Test handling of invalid JSON message"""

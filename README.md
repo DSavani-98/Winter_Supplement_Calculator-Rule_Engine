@@ -1,91 +1,123 @@
 # Winter Supplement Eligibility Calculator
 
 ## Overview
-This project implements a **Winter Supplement Eligibility Calculator** for determining a client’s eligibility and calculating their benefit amount based on predefined rules. The application uses an event-driven architecture with an MQTT broker for seamless message exchange. It integrates a dynamic rule engine for real-time processing of eligibility criteria and calculations.
+This project is a Winter Supplement Eligibility Calculator that checks if clients are eligible and calculates their benefits based on set rules. It uses an event-driven setup with an MQTT broker for message handling.
 
 ---
 
-## Setting Up the Environment
+### Setting Up the Environment
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/<your-repo-name>.git
-   cd <your-repo-name>
+Clone the Repository:
+```bash
+https://github.com/DSavani-98/Winter_Supplement_Calculator-Rule_Engine.git
+cd <Winter_Supplement_Calculator-Rule_Engine>
+```
 
-	2.	Create a Virtual Environment:
+### Prerequisites:
 
+•	Python 3.8 or higher
+•	Internet connection for MQTT broker communication
+•	Git for cloning the repository
+
+
+### Setting Up the Environment and Application:
+```bash
 python -m venv .venv
 source .venv/bin/activate  # Linux/Mac
 .venv\Scripts\activate     # Windows
+```
 
 
-	3.	Install Dependencies:
-
+Install Dependencies:
+```bash
 pip install -r requirements.txt
+```
+
+Set Environment Variables:
+```bash
+	Copy .env:
+	cp .env.example .env
+```
+<br>
+
+	Update MQTT_TOPIC_ID and other variables in the .env file if necessary.
+
+### How to Run broker Handler and Client services:
+
+#### MQTT TOPIC ID ####
+This is the MQTT Topic Id that we will be subcribing to. You update the ID inside `.env` file.
+```bash
+MQTT_TOPIC_ID=7e5f7e29-d39a-48fe-8e3c-7f44167cd49b
+```  
+#### Note: This step is not necessary to perform ####
+<br>
 
 
-	4.	Set Environment Variables:
-	•	Copy .env:
-
-cp .env.example .env
-
-
-	•	Update MQTT_TOPIC_ID and other variables in the .env file if necessary.
-
-How to Run the Engine
-
-	1.	Start the Rule Engine:
-
+#### Start the Rule Engine:
+This connects to the MQTT broker, subscribes to the input topic ID, and dynamically processes and displays evaluated response for incoming requests.
+```bash
 python src/rule_engine.py
+```
+<br>
 
-This connects to the MQTT broker, subscribes to the input topic, and dynamically processes incoming requests.
 
-	2.	Run the Client Interface:
-
+#### Run the Client Interface:
+This will allow user to use interactive CLI to enter custom values for calculating the Winter Supplement. This tool allows manual testing of the rule engine.
+```bash
 python src/client.py
+```
 
-Use the interactive CLI to send test requests for calculating the Winter Supplement. This tool allows manual testing of the rule engine.
+<br>
 
-How to Run Tests
+#### Sending request to broker in json format:
+Using secon Terminal window we can direltly send the request data into JSON format to the broker server and will be able to see evaluated response from subscribed broker on the rule_engine terminal.
+```bash
+mosquitto_pub -h test.mosquitto.org -p 1883 -t "BRE/calculateWinterSupplementInput/7e5f7e29-d39a-48fe-8e3c-7f44167cd49b" -m '{"id": "WS001", "numberOfChildren": 2, "familyComposition": "single", "familyUnitInPayForDecember": true}'
+```
+<br>
 
-	1.	Execute Unit Tests:
 
-pytest tests/ --cov=src --cov-report=term-missing
+### Executing Tests:
 
-This command runs all unit tests and generates a coverage report for the src folder.
-
-	2.	Sample Coverage Report Output:
-
-Name                            Stmts   Miss  Cover
------------------------------------------------
-src/broker_handler.py              61      0   100%
-src/supplement_core_logic.py       42      0   100%
------------------------------------------------
-TOTAL                             103      0   100%
-
-Prerequisites
-
-	•	Python 3.8 or higher
-	•	MQTT broker (e.g., test.mosquitto.org)
-	•	Internet connection for MQTT broker communication
-	•	Git for cloning the repository
-
-Recorded Videos
-
-	1.	Establishing Connection with the MQTT Broker:
-Demonstrates the process of connecting the application to the MQTT broker and passing data in the exact JSON format received from the web application.
-	2.	Interactive Testing with Step-by-Step User Input:
-Showcases an additional feature that imitates user input step by step. This feature facilitates better usability and allows for manual testing of the application.
-	3.	Executing All Tests:
-Displays the process of running all test cases using the command:
-
+#### Performing Unit Tests:
+Using below command we will be able to itreate though all the test cases inside test_broker_handler.py and test_supplement_core_logic.py. and will also display result for each test case if PASSED OR FAILED .
+```bash
 pytest -v --color=yes
+```
+<br>
 
-The video highlights the successful execution of tests with detailed results.
 
-	4.	Running Tests with Coverage Report:
-Illustrates running tests with the coverage command:
+#### Generating Coverage Report for Tests:
+This command runs all unit tests and generates a coverage report. below is the screenshot for the coverage report.
+```bash
+pytest --cov=src tests/
+```
+![alt text](media/image.png)
 
-pytest -v --color=yes --cov=src
+<br>
 
-The video shows the generated coverage report, ensuring complete test coverage of the core functionality.
+
+
+### Demo Clips:
+
+#### 1. Establishing Connection with the MQTT Broker:
+Demonstrates the process of connecting the application to the MQTT broker and passing data in the exact JSON format received from the web application.
+
+<video controls src="media/recording_1.gif" title="Title"></video>
+		
+
+#### 2. Interactive Testing with Step-by-Step User Input:
+Showcases an additional feature that imitates user input step by step. This feature facilitates better usability and allows for manual testing of the application.
+
+<video controls src="media/recording_2.gif" title="Title"></video>
+	
+#### 3.	Executing All Tests:
+Displays the process and successful execution of tests with results. 
+
+<video controls src="media/testRecording_1.gif" title="Title"></video>
+
+
+#### 4.	Running Tests with Coverage Report:
+Illustration of generated coverage report for running tests with the coverage command:
+
+<video controls src="media/testRecording_2.gif" title="Title"></video>
