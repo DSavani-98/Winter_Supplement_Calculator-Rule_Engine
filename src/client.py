@@ -12,9 +12,6 @@ logger = logging.getLogger(__name__)
 
 def on_message(client, userdata, message):
     """Handle received messages"""
-    # print("\nReceived Response:")
-    # response = json.loads(message.payload.decode())
-    # print(json.dumps(response, indent=2))
     pass
 
 def run_client():

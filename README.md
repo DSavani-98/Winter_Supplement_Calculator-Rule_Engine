@@ -140,19 +140,19 @@ The 0% coverage for client.py and rule_engine.py is a good practice as it demons
 Demonstrates the process of connecting the application to the MQTT broker and passing data in the exact JSON format received from the web application.
 
 ![Connecting to MQTT Broker](media/recording_1.gif)
-		
+---	
 
 #### 2. Interactive Testing with Step-by-Step User Input:
 Showcases an additional feature that imitates user input step by step. This feature facilitates better usability and allows for manual testing of the application.
 
 ![Running client module](media/recording_2.gif)
-	
+---
 #### 3.	Executing All Tests:
 Displays the process and successful execution of tests with results. 
 
 ![Executing Tests Cases](media/testRecording_1.gif)
 
-
+---
 #### 4.	Running Tests with Coverage Report:
 Illustration of generated coverage report for running tests with the coverage command:
 
@@ -166,3 +166,14 @@ Illustration of generated coverage report for running tests with the coverage co
  - Python: Version 3.8 or higher
  - Internet connection: Required for MQTT broker communication and building dependacies
  - Git: Needed to clone the project repository
+---
+<br>
+
+### NOTE:
+
+For more details about the rule engine and testing component, check the following resources:
+
+- **[rule engine README.md](src/README.md)**
+
+- **[tests README.md](tests/README.md)**
+
