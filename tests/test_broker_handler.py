@@ -45,7 +45,7 @@ def test_valid_message_processing(mqtt_setup):
     time.sleep(2)  # Allow time for connection
     
     test_data = {
-        "id": "WS001",
+        "id": "WS010",
         "numberOfChildren": 1,
         "familyComposition": "single",
         "familyUnitInPayForDecember": True
@@ -86,7 +86,7 @@ def test_valid_message_processing(mqtt_setup):
     # Verify response was received
     assert len(received_messages) > 0
     response = received_messages[0]
-    assert response["id"] == "WS001"
+    assert response["id"] == "WS010"
     assert "supplementAmount" in response
 
 def test_bad_message_handling(mqtt_setup):
