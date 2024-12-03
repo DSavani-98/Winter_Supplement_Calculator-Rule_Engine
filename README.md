@@ -65,7 +65,13 @@ cp .env.example .env
 ```bash
 copy .env.example .env
 ```
+
+#### 8. Install Mosquitto-client
+   Refer [Mosquitto](https://mosquitto.org/download/) for installation guide according to your system requirements.
+
+
 Your environment is now ready to use.
+
 
 ---
 <br>
@@ -80,6 +86,7 @@ To update the MQTT Topic ID that the system subscribes to, modify the environmen
 2. Copy the MQTT Topic ID from the web client.
 
 3. Open the `.env` file and replace the existing sample MQTT Topic ID with the actual one. The updated `.env` file should resemble the following:  
+
    ![.env file](media/env-file.png)
 
 ---
@@ -106,8 +113,9 @@ python src/client.py
 #### Sending request to broker in json format:
 Using another Terminal window we can directly send the request data into JSON format to the broker server and will be able to see evaluated response from subscribed broker on the rule_engine terminal.
 ```bash
-mosquitto_pub -h test.mosquitto.org -p 1883 -t "BRE/calculateWinterSupplementInput/7e5f7e29-d39a-48fe-8e3c-7f44167cd49b" -m '{"id": "WS001", "numberOfChildren": 2, "familyComposition": "single", "familyUnitInPayForDecember": true}'
+mosquitto_pub -h test.mosquitto.org -p 1883 -t "BRE/calculateWinterSupplementInput/c05c9520-2d05-44b9-9bbe-c1c543feda35" -m '{"id": "WS001", "numberOfChildren": 2, "familyComposition": "single", "familyUnitInPayForDecember": true}'
 ```
+NOTE: Refer to section [Install mosquitto-client](#8-install-mosquitto-client) in `Setting up your environment` for how to install Mosquitto-client
 
 ---
 <br>
