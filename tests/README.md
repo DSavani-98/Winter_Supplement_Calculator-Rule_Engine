@@ -16,8 +16,6 @@ Contains tests for MQTT broker interaction, connection lifecycle, and message pr
    
   Includes tests for validating input data and calculating the Winter Supplement eligibility and amounts.
 
----
-
 #### 1. Test Cases under `test_broker_handler.py`
 
 - *`test_connect_success`*:
@@ -44,8 +42,6 @@ Contains tests for MQTT broker interaction, connection lifecycle, and message pr
   
   Checks the proper initialization and cleanup of MQTT client lifecycle methods (loop_start, loop_stop, and disconnect).
   Ensures smooth system startup and shutdown.
----
-<br>
 
 #### 2. Test Cases under `test_supplement_core_logic.py`
 
@@ -82,7 +78,7 @@ Contains tests for MQTT broker interaction, connection lifecycle, and message pr
 
 - *`test_single_with_children`*:
 
-Confirms that a single individual with one child gets $80 ($60 base + $20 for the child).
+   Confirms that a single individual with one child gets $80 ($60 base + $20 for the child).
 
 
 - *`test_childless_couple`*:
